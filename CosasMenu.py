@@ -4,7 +4,7 @@ import math
 
 import numpy as np
 
-class CosasFondo(Modelo):
+class CosasMenu(Modelo):
 
     velocidad = 0.003
     
@@ -489,21 +489,7 @@ class CosasFondo(Modelo):
         #self.transformaciones = glm.rotate(self.transformaciones,
         #            45.0, glm.vec3(0.0,0.0,1.0))
         super().__init__(shader, posicion_id, color_id, transformaciones_id)
-
-    def actualizar(self, tiempo_delta):
-        cantidad_movimiento = self.velocidad * tiempo_delta
-        self.posicion.y = self.posicion.y - cantidad_movimiento
-
-        self.velocidad = self.velocidad + (0.0001 * tiempo_delta)
-
-        if self.posicion.y < -2.5:
-            self.posicion.y = 2
-
-        self.transformaciones = glm.mat4(1.0)
-        self.transformaciones = glm.translate(self.transformaciones,
-                self.posicion)
         
-
 
     def dibujar(self):
         self.shader.usar_programa()
@@ -515,9 +501,9 @@ class CosasFondo(Modelo):
                 1, gl.GL_FALSE, glm.value_ptr(self.transformaciones))
 
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 0, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 4, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 8, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 12, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 4, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 8, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 12, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 16, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 20, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 24, 4)
@@ -526,17 +512,17 @@ class CosasFondo(Modelo):
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 36, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 40, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 44, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 48, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 48, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 52, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 56, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 60, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 64, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 68, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 72, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 76, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 80, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 84, 4)
-        # gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 88, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 64, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 68, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 72, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 76, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 80, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 84, 4)
+        gl.glDrawArrays(gl.GL_TRIANGLE_STRIP, 88, 4)
         gl.glDrawArrays(gl.GL_TRIANGLE_FAN, 92, 72)
         gl.glDrawArrays(gl.GL_TRIANGLE_FAN, 164, 72)
         gl.glDrawArrays(gl.GL_TRIANGLE_FAN, 236, 72)

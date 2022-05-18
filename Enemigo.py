@@ -31,8 +31,9 @@ class Enemigo(Modelo):
         self.colorR = colorR
         self.colorG = colorG
         self.colorB = colorB
-        self.posicion_x = x
-        self.posicion_y = y
+        self.posicion = glm.vec3(0,0,0)
+        self.posicion.x = x
+        self.posicion.y = y
         self.vertices = np.array(
             [
                         
@@ -42,7 +43,7 @@ class Enemigo(Modelo):
         #LLANTAS
         for angulo in range(0, 359, 5):
             componente_x = 0.01 * math.cos(angulo * math.pi / 180) -0.039 
-            componente_y = 0.025 * math.sin(angulo * math.pi / 180) -.09 + y
+            componente_y = 0.025 * math.sin(angulo * math.pi / 180) -.09 
 
             self.vertices = np.append(self.vertices, np.array([componente_x, componente_y, 0.0 , 1.0, 
                                                         31/255, 31/255, 31/255, 1.0 ], dtype="float32")) 
@@ -52,21 +53,21 @@ class Enemigo(Modelo):
 
         for angulo in range(0, 359, 5):
             componente_x = 0.01 * math.cos(angulo * math.pi / 180)  + 0.039 
-            componente_y = 0.025 * math.sin(angulo * math.pi / 180) -.09 + y
+            componente_y = 0.025 * math.sin(angulo * math.pi / 180) -.09 
 
             self.vertices = np.append(self.vertices, np.array([componente_x, componente_y, 0.0 , 1.0, 
                                                         31/255, 31/255, 31/255, 1.0 ], dtype="float32"))
 
         for angulo in range(0, 359, 5):
             componente_x = 0.01 * math.cos(angulo * math.pi / 180)  - 0.039 
-            componente_y = 0.025 * math.sin(angulo * math.pi / 180) -.08 + 0.11 + y
+            componente_y = 0.025 * math.sin(angulo * math.pi / 180) -.08 + 0.11 
 
             self.vertices = np.append(self.vertices, np.array([componente_x, componente_y, 0.0 , 1.0, 
                                                         31/255, 31/255, 31/255, 1.0 ], dtype="float32"))
 
         for angulo in range(0, 359, 5):
             componente_x = 0.01 * math.cos(angulo * math.pi / 180)  + 0.039 
-            componente_y = 0.025 * math.sin(angulo * math.pi / 180) -.08 + 0.11 + y
+            componente_y = 0.025 * math.sin(angulo * math.pi / 180) -.08 + 0.11 
 
             self.vertices = np.append(self.vertices, np.array([componente_x, componente_y, 0.0 , 1.0, 
                                                         31/255, 31/255, 31/255, 1.0 ], dtype="float32"))
@@ -75,43 +76,43 @@ class Enemigo(Modelo):
 
         self.vertices = np.append(self.vertices, np.array(
             [
-                -0.04 ,0.055 + y,0.0, 1.0,  self.colorR, self.colorG, self.colorB, 1.0,  #izquierda, abajo
-                -0.04 ,-0.1 + y,0.0, 1.0,     self.colorR, self.colorG, self.colorB, 1.0, #arriba
-                0.04 ,0.055 + y, 0.0, 1.0,    self.colorR, self.colorG, self.colorB, 1.0,   #derecha
-                0.04 ,-0.1 + y,0.0, 1.0,      self.colorR, self.colorG, self.colorB, 1.0,
+                -0.04 ,0.055 ,0.0, 1.0,  self.colorR, self.colorG, self.colorB, 1.0,  #izquierda, abajo
+                -0.04 ,-0.1 ,0.0, 1.0,     self.colorR, self.colorG, self.colorB, 1.0, #arriba
+                0.04 ,0.055 , 0.0, 1.0,    self.colorR, self.colorG, self.colorB, 1.0,   #derecha
+                0.04 ,-0.1 ,0.0, 1.0,      self.colorR, self.colorG, self.colorB, 1.0,
                         
             ], dtype="float32"
         ))
 
         for angulo in range(0, 359, 5):
             componente_x = 0.04 * math.cos(angulo * math.pi / 180) 
-            componente_y = 0.04 * math.sin(angulo * math.pi / 180) +.04 + y
+            componente_y = 0.04 * math.sin(angulo * math.pi / 180) +.04 
 
             self.vertices = np.append(self.vertices, np.array([componente_x, componente_y, 0.0 , 1.0, 
                                                         self.colorR, self.colorG, self.colorB, 1.0 ], dtype="float32"))
 
         for angulo in range(0, 359, 5):
             componente_x = 0.04 * math.cos(angulo * math.pi / 180) 
-            componente_y = 0.04 * math.sin(angulo * math.pi / 180) -.1 + y
+            componente_y = 0.04 * math.sin(angulo * math.pi / 180) -.1 
 
             self.vertices = np.append(self.vertices, np.array([componente_x, componente_y, 0.0 , 1.0, 
                                                         self.colorR, self.colorG, self.colorB, 1.0 ], dtype="float32"))
 
         self.vertices = np.append(self.vertices, np.array(
             [
-                -0.027 ,0.0001 * 0.4 + y, 0, 1.0,  15/255, 13/255, 9/255, 1.0,  #izquierda, abajo
-                -0.034 ,+ 0.07 * 0.4 + y, 0, 1.0,     15/255, 13/255, 9/255, 1.0, #arriba
-                0.027 ,0.0001 * 0.4 + y, 0, 1.0,    15/255, 13/255, 9/255, 1.0,   #derecha
-                0.034 ,+0.07 * 0.4 + y, 0, 1.0,      15/255, 13/255, 9/255, 1.0                         
+                -0.027 ,0.0001 * 0.4 , 0, 1.0,  15/255, 13/255, 9/255, 1.0,  #izquierda, abajo
+                -0.034 ,+ 0.07 * 0.4 , 0, 1.0,     15/255, 13/255, 9/255, 1.0, #arriba
+                0.027 ,0.0001 * 0.4 , 0, 1.0,    15/255, 13/255, 9/255, 1.0,   #derecha
+                0.034 ,+0.07 * 0.4 , 0, 1.0,      15/255, 13/255, 9/255, 1.0                         
             ], dtype="float32"
         ))
 
         self.vertices = np.append(self.vertices, np.array(
             [
-                -0.027 ,-0.01996 -0.03 + y, 0, 1.0,  15/255, 13/255, 9/255, 1.0,  #izquierda, abajo
-                -0.034 ,- 0.048 -0.03 + y, 0, 1.0,     15/255, 13/255, 9/255, 1.0, #arriba
-                0.027 ,-0.01996 -0.03 + y, 0, 1.0,    15/255, 13/255, 9/255, 1.0,   #derecha
-                0.034 ,- 0.048 -0.03 + y, 0, 1.0,      15/255, 13/255, 9/255, 1.0                          
+                -0.027 ,-0.01996 -0.03 , 0, 1.0,  15/255, 13/255, 9/255, 1.0,  #izquierda, abajo
+                -0.034 ,- 0.048 -0.03 , 0, 1.0,     15/255, 13/255, 9/255, 1.0, #arriba
+                0.027 ,-0.01996 -0.03 , 0, 1.0,    15/255, 13/255, 9/255, 1.0,   #derecha
+                0.034 ,- 0.048 -0.03 , 0, 1.0,      15/255, 13/255, 9/255, 1.0                          
             ], dtype="float32"
         ))
 
@@ -138,8 +139,8 @@ class Enemigo(Modelo):
             cantidad_movimiento =self.velocidad * tiempo_delta
             if self.direccion == 0:
                 self.posicion.y = self.posicion.y - cantidad_movimiento
-                if self.posicion.y <= -4:
-                    self.posicion.y = 0.2
+                if self.posicion.y <= -2:
+                    self.posicion.y = 1.2
                     posicion = self.posibles_posiciones[randint(0,6)]
                     self.posicion.x = posicion
 

@@ -3,27 +3,7 @@ import numpy as np
 from ctypes import c_void_p
 import glm
 
-class Modelo:
-    @property
-    def posicion_x(self):
-        return self._posicion_x
-    @posicion_x.setter
-    def posicion_x(self, posicion_x):
-        self._posicion_x = posicion_x
-
-    @property
-    def posicion_y(self):
-        return self._posicion_y
-    @posicion_y.setter
-    def posicion_y(self, posicion_y):
-        self._posicion_y = posicion_y 
-
-    @property
-    def posicion_z(self):
-        return self._posicion_z
-    @posicion_z.setter
-    def posicion_z(self, posicion_z):
-        self._posicion_z = posicion_z 
+class Modelo: 
     
     @property
     def velocidad(self):
@@ -61,9 +41,9 @@ class Modelo:
         self._extremo_inferior = extremo_inferior
 
     def __init__(self, shader, posicion_id, color_id, transformaciones_id, posicion_x = 0.0, posicion_y = 0.0, posicion_z = 0.0, velocidad = 0.0):
-        self._posicion_x = posicion_x
-        self._posicion_y = posicion_y
-        self._posicion_z = posicion_z
+        self.posicion.x = posicion_x
+        self.posicion.y = posicion_y
+        self.posicion.z = posicion_z
         self._velocidad = velocidad
         self.shader = shader
         self.transformaciones_id = transformaciones_id
@@ -103,10 +83,10 @@ class Modelo:
         # Extremo superior del triangulo >= Extremo inferior del cuadrado
         # Extremo inferior del triangulo <= Extremo superior del cuadrado
         # self es el primer elemento y modelo el 2do
-        if (self.posicion_x + self.extremo_derecho >= modelo.posicion_x - modelo.extremo_izquierdo
-            and self.posicion_x - self.extremo_izquierdo <= modelo.posicion_x + modelo.extremo_derecho 
-            and self.posicion_y + self.extremo_superior >= modelo.posicion_y - modelo.extremo_inferior 
-            and self.posicion_y - self.extremo_inferior <= modelo.posicion_y + modelo.extremo_superior):
+        if (self.posicion.x + self.extremo_derecho >= modelo.posicion.x - modelo.extremo_izquierdo
+            and self.posicion.x - self.extremo_izquierdo <= modelo.posicion.x + modelo.extremo_derecho 
+            and self.posicion.y + self.extremo_superior >= modelo.posicion.y - modelo.extremo_inferior 
+            and self.posicion.y - self.extremo_inferior <= modelo.posicion.y + modelo.extremo_superior):
             
             colisionando = True 
         return colisionando

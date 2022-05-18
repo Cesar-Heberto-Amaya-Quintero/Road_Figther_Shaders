@@ -11,7 +11,10 @@ from CosasFondo import *
 from CosasFondoEstaticas import * 
 from Pajaro import * 
 from Pajaro2 import * 
-from Enemigo import * 
+from Enemigo import *
+from CosasGameOver import *
+from CosasMenu import *
+from TextoMenu import * 
 
 SCREEN_WIDTH = 1100
 SCREEN_HEIGHT = 880
@@ -23,11 +26,18 @@ pajaro = None
 pajaro2 = None
 enemigo = None
 cosasFondoEstaticas = None
+cosasGameOver = None
+cosasMenu = None
+textoMenu = None
 window = None
 
 enemigos = []
 
 tiempo_anterior = 0.0
+
+# CAMBIAR VENTANA
+# 0 = MENU  1 = VENTANA JUEGO  2 GAME OBVER
+ventana_actual = 1
 
 posiciones_enemigos = [
     [-0.3, 1.3, 0.0],
@@ -74,24 +84,38 @@ def actualizar():
     global cosasFondo
     global tiempo_anterior
     global enemigo
+    global ventana_actual
+
+    if ventana_actual == 2:
+        return
 
     tiempo_actual = glfw.get_time()
     #Cuanto tiempo paso entre la ejecución actual y la inmediata anterior de este función
     tiempo_delta = tiempo_actual - tiempo_anterior
 
+    estado_enter  = glfw.get_key(window, glfw.KEY_ENTER)
+
+    if estado_enter == glfw.PRESS and tiempo_actual > 2.5 and ventana_actual == 0:
+        ventana_actual = 1
+
     modelo.actualizar(window, tiempo_delta)
-    lineaCalle.actualizar()
-    cosasFondo.actualizar(tiempo_delta)
-    pajaro.actualizar(tiempo_delta)
-    pajaro2.actualizar(tiempo_delta)
 
-    tiempo_anterior = tiempo_actual
-
+    
     for enemigo in enemigos:
         if enemigo.colisionando(modelo):
             print("chocastess")
-    for enemigo in enemigos:
-        enemigo.actualizar(tiempo_delta)
+            ventana_actual = 2
+
+    if ventana_actual == 1:
+        for enemigo in enemigos:
+            enemigo.actualizar(tiempo_delta)
+
+        lineaCalle.actualizar(tiempo_delta)
+        cosasFondo.actualizar(tiempo_delta)
+        pajaro.actualizar(tiempo_delta)
+        pajaro2.actualizar(tiempo_delta)
+
+    tiempo_anterior = tiempo_actual
 
 def dibujar():
     global modelo
@@ -112,6 +136,16 @@ def dibujar():
     
     for enemigo in enemigos:
         enemigo.dibujar()
+
+def dibujarGameOver():
+    global cosasGameOver
+    cosasGameOver.dibujar()
+
+def dibujarMenu():
+    global cosasMenu
+    global textoMenu
+    cosasMenu.dibujar()
+    textoMenu.dibujar()
     
     
 
@@ -124,6 +158,9 @@ def main():
     global pajaro
     global pajaro2
     global enemigo
+    global cosasGameOver
+    global cosasMenu
+    global textoMenu
     
     glfw.init()
 
@@ -134,7 +171,7 @@ def main():
     glfw.window_hint(glfw.OPENGL_FORWARD_COMPAT, gl.GL_TRUE)
 
     window = glfw.create_window(SCREEN_WIDTH, SCREEN_HEIGHT, 
-        "Plantilla Shaders",None,None)
+        "Road Fighter",None,None)
     if window is None:
         glfw.terminate()
         raise Exception("No se pudo crear ventana")
@@ -169,6 +206,15 @@ def main():
     pajaro2 = Pajaro2(shader, 
             posicion_id, color_id, transformaciones_id)
     
+    cosasGameOver = CosasGameOver(shader, 
+            posicion_id, color_id, transformaciones_id)
+
+    cosasMenu = CosasMenu(shader, 
+            posicion_id, color_id, transformaciones_id)
+    
+    textoMenu = TextoMenu(shader, 
+        posicion_id, color_id, transformaciones_id)
+    
     inicializar_enemigos(shader, posicion_id, color_id, transformaciones_id)
     
     # enemigo = Enemigo(shader, 
@@ -181,9 +227,16 @@ def main():
         gl.glClearColor(69/255, 145/255, 2/255,1)
         gl.glClear(gl.GL_COLOR_BUFFER_BIT)
 
-        #dibujar
-        dibujar()
+
         actualizar()
+        #dibujar
+        if ventana_actual == 0:
+            dibujarMenu()
+        if ventana_actual == 1:
+            dibujar()
+        if ventana_actual == 2:
+            dibujarGameOver()
+        
 
         glfw.swap_buffers(window)
         glfw.poll_events()
@@ -196,6 +249,9 @@ def main():
     pajaro.borrar()
     pajaro2.borrar()
     shader.borrar()
+    cosasGameOver.borrar()
+    cosasMenu.borrar()
+    textoMenu.borrar()
 
     
 
