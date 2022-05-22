@@ -72,7 +72,7 @@ class Pajaro2(Modelo):
         # posicion_pajaros[1][0] = posicion_pajaros[1][0] + (math.cos((angulo_pajaro - fase) * math.pi/ 180)  * cantidad_movimiento )
         # posicion_pajaros[1][1] = posicion_pajaros[1][1] - (math.sin((angulo_pajaro - fase) * math.pi/ 180)  * cantidad_movimiento )
 
-        self.angulo = self.angulo + 0.4
+        self.angulo = self.angulo - 0.2
 
         self.transformaciones = glm.mat4(1.0)
         self.transformaciones = glm.translate(self.transformaciones,
