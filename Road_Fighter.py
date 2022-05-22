@@ -1,6 +1,7 @@
 from pickle import GLOBAL
 import OpenGL.GL as gl
 import glfw
+from matplotlib.pyplot import text
 import numpy as np
 from Carro import *
 from Shader import *
@@ -15,6 +16,20 @@ from Enemigo import *
 from CosasGameOver import *
 from CosasMenu import *
 from TextoMenu import * 
+
+#SOLO PARA LA MÚSICA
+import pygame
+
+pygame.init()
+pygame.mixer.init()
+
+pygame.mixer.music.load("Music/menu_pou.mp3")
+pygame.mixer.music.play()
+
+pygame.mixer.music.queue("Music/menu_pou.mp3")
+
+pygame.mixer.music.set_volume(0.2) #0.2
+
 
 SCREEN_WIDTH = 1100
 SCREEN_HEIGHT = 880
@@ -37,7 +52,7 @@ tiempo_anterior = 0.0
 
 # CAMBIAR VENTANA
 # 0 = MENU  1 = VENTANA JUEGO  2 GAME OBVER
-ventana_actual = 1
+ventana_actual = 0
 
 posiciones_enemigos = [
     [-0.3, 1.3, 0.0],
@@ -86,6 +101,7 @@ def actualizar():
     global enemigo
     global ventana_actual
 
+
     if ventana_actual == 2:
         return
 
@@ -95,16 +111,21 @@ def actualizar():
 
     estado_enter  = glfw.get_key(window, glfw.KEY_ENTER)
 
-    if estado_enter == glfw.PRESS and tiempo_actual > 2.5 and ventana_actual == 0:
+    if estado_enter == glfw.PRESS  and ventana_actual == 0:
         ventana_actual = 1
+        pygame.mixer.music.load("Music/big_blue_8bit.mp3")
+        pygame.mixer.music.play()
+        pygame.mixer.music.set_volume(0.4) # 0.4
+        pygame.mixer.music.queue("Music/big_blue_8bit.mp3")
 
     modelo.actualizar(window, tiempo_delta)
 
     
     for enemigo in enemigos:
         if enemigo.colisionando(modelo):
-            print("chocastess")
             ventana_actual = 2
+            pygame.mixer.music.load("Music/auto.mp3")
+            pygame.mixer.music.play()
 
     if ventana_actual == 1:
         for enemigo in enemigos:

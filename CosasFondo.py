@@ -490,11 +490,13 @@ class CosasFondo(Modelo):
         #            45.0, glm.vec3(0.0,0.0,1.0))
         super().__init__(shader, posicion_id, color_id, transformaciones_id)
 
+
+
     def actualizar(self, tiempo_delta):
         cantidad_movimiento = self.velocidad * tiempo_delta
         self.posicion.y = self.posicion.y - cantidad_movimiento
 
-        self.velocidad = self.velocidad + (0.0001 * tiempo_delta)
+        self.velocidad = self.velocidad + (0.03 * tiempo_delta)
 
         if self.posicion.y < -2.5:
             self.posicion.y = 2

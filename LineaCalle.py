@@ -37,7 +37,7 @@ class LineaCalle(Modelo):
         cantidad_movimiento = self.velocidad * tiempo_delta
         self.posicion.y = self.posicion.y - cantidad_movimiento
         
-        self.posicion.y = self.posicion.y - (0.01 * tiempo_delta)
+        self.posicion.y = self.posicion.y - (1 * tiempo_delta)
 
         if self.posicion.y < -1:
             self.posicion.y = 1
